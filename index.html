@@ -105,7 +105,30 @@ img{max-width:100%;display:block}
   display:grid;place-items:center;font-size:1.05rem;transition:.2s;
 }
 .theme-toggle:hover{border-color:var(--azure)}
-.menu-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.5rem;cursor:pointer}
+.menu-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.5rem;cursor:pointer;padding:8px;line-height:1}
+
+/* Mobile nav drawer */
+.mobile-nav{
+  display:none;
+  position:fixed;top:64px;left:0;right:0;z-index:49;
+  background:var(--card);border-bottom:2px solid var(--line);
+  box-shadow:0 12px 40px -10px rgba(60,30,110,.25);
+  padding:0;overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease, padding .35s ease;
+}
+.mobile-nav.open{max-height:600px;padding:8px 0 20px}
+.mobile-nav a{
+  display:block;text-decoration:none;
+  padding:15px 28px;font-weight:700;font-size:1.1rem;
+  color:var(--ink);border-bottom:1px solid var(--line);
+  transition:background .15s, color .15s;
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:active{background:var(--paper-2)}
+.mobile-nav .mob-cta{
+  color:var(--azure);
+}
 
 /* ============================= HERO / MASTHEAD ============================= */
 .masthead{position:relative;overflow:hidden;padding:0}
@@ -323,12 +346,20 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
 @media(max-width:880px){
   .navlinks{display:none}
   .menu-btn{display:block}
+  .mobile-nav{display:block}
   .hero-grid,.story-grid,.about-grid,.visit-grid,.foot-grid,.price-grid{grid-template-columns:1fr}
   .hero-photo{aspect-ratio:16/10;max-width:100%}
   .svc-grid{grid-template-columns:1fr 1fr}
   .quotes{grid-template-columns:1fr}
   .trust-grid{grid-template-columns:1fr}
   .field-row-3{grid-template-columns:1fr}
+
+  /* Fix sticky nav covering sections when scrolled to */
+  section, .masthead{scroll-margin-top:72px}
+
+  /* Extra breathing room — sections need more air on mobile */
+  .section{padding:clamp(60px,10vw,90px) 0}
+  .section-head{margin-bottom:clamp(32px,5vw,48px)}
 
   /* ===== MOBILE: center everything (headers, titles, prose, footer) ===== */
   /* 98% of visitors are on phones — center-line the whole layout, but keep
@@ -415,7 +446,16 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
+<!-- ================= MOBILE NAV DRAWER ================= -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <a href="#about"    onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#pricing"  onclick="closeMobileNav()">Pricing</a>
+  <a href="#trust"    onclick="closeMobileNav()">Trust</a>
+  <a href="#reviews"  onclick="closeMobileNav()">Reviews</a>
+  <a href="#visit"    onclick="closeMobileNav()">Contact</a>
+  <a href="#book"     onclick="closeMobileNav()" class="mob-cta">Free estimate →</a>
+</nav>
 <section class="masthead" id="top">
   <div class="wrap">
     <div class="issue-rule">
@@ -755,8 +795,30 @@ tt.addEventListener('click',()=>{
 });
 
 /* ---------- Mobile nav ---------- */
-document.getElementById('menuBtn').addEventListener('click',()=>{
-  document.getElementById('book').scrollIntoView({behavior:'smooth'});
+/* ---------- Mobile nav toggle ---------- */
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+let navOpen = false;
+
+function closeMobileNav(){
+  navOpen = false;
+  mobileNav.classList.remove('open');
+  menuBtn.textContent = '☰';
+  menuBtn.setAttribute('aria-expanded','false');
+}
+
+menuBtn.addEventListener('click', () => {
+  navOpen = !navOpen;
+  mobileNav.classList.toggle('open', navOpen);
+  menuBtn.textContent = navOpen ? '✕' : '☰';
+  menuBtn.setAttribute('aria-expanded', String(navOpen));
+});
+
+// Close when tapping outside the nav
+document.addEventListener('click', (e) => {
+  if(navOpen && !mobileNav.contains(e.target) && e.target !== menuBtn){
+    closeMobileNav();
+  }
 });
 
 /* ---------- Year ---------- */
