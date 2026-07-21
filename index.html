@@ -128,6 +128,9 @@ img{max-width:100%;display:block}
 .hero-lede{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-soft);max-width:46ch;font-weight:500}
 .hero-lede strong{color:var(--ink);font-weight:700}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:8px 16px 8px 12px;border:1.5px solid var(--line);border-radius:100px;background:var(--card);font-size:.86rem;font-weight:600;color:var(--ink-soft)}
+.hero-badge svg{width:18px;height:18px;color:var(--azure);flex:none}
+.hero-badge b{color:var(--ink);font-weight:700}
 .btn{
   text-decoration:none;font-weight:700;font-size:.98rem;
   padding:14px 28px;border-radius:100px;cursor:pointer;border:none;
@@ -183,7 +186,7 @@ img{max-width:100%;display:block}
   background:linear-gradient(150deg,var(--deep),var(--azure));box-shadow:0 24px 60px -34px rgba(10,30,45,.5)}
 
 /* ============================= SERVICES ============================= */
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .svc{
   border:1.5px solid var(--line);border-radius:16px;padding:28px 22px;background:var(--card);
   transition:transform .25s,border-color .25s,box-shadow .25s;
@@ -226,6 +229,19 @@ img{max-width:100%;display:block}
 .about .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
 .about .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 [data-theme="dark"] .about .btn-ghost{color:var(--ink);border-color:var(--line)}
+
+/* ============================= TRUST ============================= */
+.trust-head{text-align:center;max-width:60ch;margin:0 auto clamp(36px,5vw,52px)}
+.trust-head h2{font-size:clamp(2.2rem,5vw,3.6rem);color:var(--deep);margin-bottom:14px}
+.trust-head p{color:var(--ink-soft);font-size:1.08rem;margin:0}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.trust-item{text-align:center;padding:32px 24px;border:1.5px solid var(--line);border-radius:16px;background:var(--card)}
+.trust-item .tico{width:56px;height:56px;margin:0 auto 18px;border-radius:100px;display:grid;place-items:center;background:color-mix(in srgb,var(--azure) 12%,transparent)}
+.trust-item .tico svg{width:28px;height:28px;color:var(--azure)}
+.trust-item h3{font-size:1.25rem;color:var(--deep);margin-bottom:8px}
+.trust-item p{margin:0;color:var(--ink-soft);font-size:.96rem}
+.about p em{color:var(--sun);font-style:italic;font-weight:600}
+[data-theme="dark"] .about p em{color:var(--azure)}
 
 /* ============================= TESTIMONIALS ============================= */
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -311,6 +327,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   .hero-photo{aspect-ratio:16/10;max-width:100%}
   .svc-grid{grid-template-columns:1fr 1fr}
   .quotes{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr}
   .field-row-3{grid-template-columns:1fr}
 }
 @media(max-width:520px){ .svc-grid{grid-template-columns:1fr} }
@@ -333,6 +350,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
+      <a href="#trust">Trust</a>
       <a href="#reviews">Reviews</a>
       <a href="#visit">Contact</a>
       <a href="#book" class="nav-cta">Free estimate</a>
@@ -357,6 +375,10 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
         <div class="hero-actions reveal">
           <a href="#book" class="btn btn-primary">Book a free estimate →</a>
           <a href="#services" class="btn btn-ghost">See our services</a>
+        </div>
+        <div class="hero-badge reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2.5l7 3v5c0 4.6-3 8.4-7 9.5-4-1.1-7-4.9-7-9.5v-5l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span><b>Bonded</b> &amp; fingerprint-cleared cleaners</span>
         </div>
       </div>
       <div class="hero-photo reveal">
@@ -426,6 +448,16 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
         <h3>Car Washing</h3>
         <p>Interior and exterior detailing that leaves your vehicle showroom-fresh.</p>
       </div>
+      <div class="svc reveal">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 9l8-4 8 4-8 4-8-4Z"/><path d="M4 9v6l8 4 8-4V9M12 13v6"/></svg>
+        <h3>Packing</h3>
+        <p>Careful, organized packing for your move — everything boxed, labeled, and ready to go.</p>
+      </div>
+      <div class="svc reveal">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Z"/><path d="M4 8l2-4h12l2 4M9 12h6"/></svg>
+        <h3>Unpacking</h3>
+        <p>Settle in faster — we unpack, organize, and set up your new space so it feels like home.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -474,7 +506,38 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
         <h2>Our love for cleaning shines through.</h2>
         <p class="kicker">We know not everyone loves to clean — but everyone loves a clean space.</p>
         <p>That's why we've made it our full-time job to help people live and work in cleaner spaces. We'll come to your home or business with a smile and a sponge, and we won't leave until your space is sparkling. We treat every space we clean as though it were our own — with respect and integrity.</p>
+        <p>We're here for <em>you</em>. We meet every client where they are and honor what matters to them — if a client of faith would like us to share a moment of prayer in their home, we're glad to. However you feel most at home, that's how we want to leave your space.</p>
         <a href="#book" class="btn btn-ghost">Book with us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST ================= -->
+<section class="section" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal" style="justify-content:center">
+      <span class="num">04 — Your peace of mind</span>
+    </div>
+    <div class="trust-head reveal">
+      <h2>People you can trust in your home.</h2>
+      <p>Inviting someone into your home or office takes trust. We take that seriously — so every person on our team is screened, cleared, and bonded before they ever set foot in your space.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5l7 3v5c0 4.6-3 8.4-7 9.5-4-1.1-7-4.9-7-9.5v-5l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Bonded &amp; insured</h3>
+        <p>Every cleaner is bonded, so you have peace of mind and protection the moment we walk in.</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4c2.2 0 4 1.8 4 4v1a4 4 0 0 1-8 0V8c0-2.2 1.8-4 4-4Z"/><path d="M6 20c0-2.5 2.7-4 6-4s6 1.5 6 4M9.5 9.5c.4 1 1.4 1.5 2.5 1.5s2.1-.5 2.5-1.5"/></svg></div>
+        <h3>Fingerprint-cleared</h3>
+        <p>Every team member is fingerprint-cleared through the police station before their first job — for your safety and your family's.</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="tico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L3.2 8.7l5.4-.8L12 3Z"/></svg></div>
+        <h3>Trained our way</h3>
+        <p>We personally train every cleaner in our standards, so you get the same careful, stand-out clean every single visit.</p>
       </div>
     </div>
   </div>
@@ -485,7 +548,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Happy clients.</h2>
-      <span class="num">04 — Reviews</span>
+      <span class="num">05 — Reviews</span>
     </div>
     <div class="quotes">
       <div class="quote reveal">
@@ -520,7 +583,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Get in touch.</h2>
-      <span class="num">05 — Contact &amp; booking</span>
+      <span class="num">06 — Contact &amp; booking</span>
     </div>
     <div class="visit-grid">
       <div class="reveal">
@@ -566,6 +629,8 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
                 <option>Ironing</option>
                 <option>Office Cleaning</option>
                 <option>Car Washing</option>
+                <option>Packing</option>
+                <option>Unpacking</option>
                 <option>Other / not sure</option>
               </select>
             </div>
