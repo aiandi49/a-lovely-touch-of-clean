@@ -329,6 +329,61 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   .quotes{grid-template-columns:1fr}
   .trust-grid{grid-template-columns:1fr}
   .field-row-3{grid-template-columns:1fr}
+
+  /* ===== MOBILE: center everything (headers, titles, prose, footer) ===== */
+  /* 98% of visitors are on phones — center-line the whole layout, but keep
+     form fields and structured rows in their natural alignment for usability. */
+  .hero-title,.hero-lede,.section-head,.section-head h2,
+  .story p,.story .stat-row,.stat,
+  #services > .wrap > p,.svc,.svc p,
+  .price-copy,.price-copy p,.price-card,.base-label,.price-headline,.addl,.price-note,
+  .about-grid > div,.about .kicker,.about p,
+  .trust-head,.trust-item,
+  .quote,.quote p,.quote .who,
+  .cta-band .wrap,
+  .info-block,
+  .foot-grid,.foot-grid > div,.foot-brand,.foot-brand p,.foot-col,.foot-base{
+    text-align:center;
+  }
+
+  /* hero: center the action buttons + badge row */
+  .hero-actions{justify-content:center}
+  .hero-badge{margin-left:auto;margin-right:auto}
+
+  /* masthead strip: stack and center the three labels */
+  .issue-rule{flex-direction:column;gap:6px;text-align:center}
+
+  /* section heads are flex rows on desktop — center them when stacked */
+  .section-head{justify-content:center;text-align:center}
+
+  /* story dropcap: floating a big letter breaks centered text, so undo the
+     float on mobile and let the paragraph read centered */
+  .dropcap::first-letter{float:none;padding:0;font-size:inherit;line-height:inherit;color:inherit}
+  .story .stat-row{justify-content:center}
+
+  /* service + trust icons: center within their cards */
+  .svc-ico,.trust-item .tico{margin-left:auto;margin-right:auto}
+
+  /* pricing figures center cleanly */
+  .price-headline,.addl{justify-content:center}
+
+  /* about eyebrow + button center */
+  .about .eyebrow{display:block;text-align:center}
+  .about .btn,.price-copy .btn,.hero-actions .btn{margin-left:auto;margin-right:auto}
+
+  /* testimonials: center the person row (avatar over name reads best centered) */
+  .quote .who{flex-direction:column;text-align:center;gap:8px}
+
+  /* cta band: stack + center its button */
+  .cta-band .wrap{flex-direction:column;text-align:center}
+  .cta-band h2{max-width:none}
+
+  /* footer columns center; links center under headings */
+  .foot-base{flex-direction:column;text-align:center}
+
+  /* keep form labels left-aligned for scannability, inputs full width */
+  .booking-card,.booking-card h3,.booking-card .sub{text-align:center}
+  .field label{text-align:left}
 }
 @media(max-width:520px){ .svc-grid{grid-template-columns:1fr} }
 @media(prefers-reduced-motion:reduce){
@@ -400,7 +455,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>A clean space,<br>a clearer mind.</h2>
-      <span class="num">01 — Why we clean</span>
     </div>
     <div class="story-grid">
       <div class="reveal">
@@ -424,7 +478,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Our services.</h2>
-      <span class="num">02 — What we do</span>
     </div>
     <p class="reveal" style="max-width:60ch;color:var(--ink-soft);margin:-20px 0 40px;font-size:1.08rem">We serve both residential and commercial clients, bringing cleanliness to every space we encounter — with reliable, hardworking cleaners and excellent service every time.</p>
     <div class="svc-grid">
@@ -444,9 +497,9 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
         <p>Dependable commercial cleaning that keeps your workplace sharp and healthy.</p>
       </div>
       <div class="svc reveal">
-        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 15l1.5-4.5A2 2 0 0 1 7.4 9h9.2a2 2 0 0 1 1.9 1.5L20 15M4 15h16v3H4zM7 18v1.5M17 18v1.5"/><circle cx="7.5" cy="15.5" r="1"/><circle cx="16.5" cy="15.5" r="1"/></svg>
-        <h3>Car Washing</h3>
-        <p>Interior and exterior detailing that leaves your vehicle showroom-fresh.</p>
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="13" r="5"/><path d="M12 13a2.5 2.5 0 0 1 2.5-2.5M5 4h14v3H5zM8 4v3M16 4v3"/></svg>
+        <h3>Laundry &amp; Wash-Fold</h3>
+        <p>Washed, dried, neatly folded, and ready to put away — laundry day handled for you.</p>
       </div>
       <div class="svc reveal">
         <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 9l8-4 8 4-8 4-8-4Z"/><path d="M4 9v6l8 4 8-4V9M12 13v6"/></svg>
@@ -467,7 +520,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Simple, honest pricing.</h2>
-      <span class="num">03 — What it costs</span>
     </div>
     <div class="price-grid">
       <div class="price-copy reveal">
@@ -517,7 +569,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
 <section class="section" id="trust">
   <div class="wrap">
     <div class="section-head reveal" style="justify-content:center">
-      <span class="num">04 — Your peace of mind</span>
     </div>
     <div class="trust-head reveal">
       <h2>People you can trust in your home.</h2>
@@ -548,7 +599,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Happy clients.</h2>
-      <span class="num">05 — Reviews</span>
     </div>
     <div class="quotes">
       <div class="quote reveal">
@@ -583,7 +633,6 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Get in touch.</h2>
-      <span class="num">06 — Contact &amp; booking</span>
     </div>
     <div class="visit-grid">
       <div class="reveal">
@@ -628,7 +677,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
                 <option>House Cleaning</option>
                 <option>Ironing</option>
                 <option>Office Cleaning</option>
-                <option>Car Washing</option>
+                <option>Laundry &amp; Wash-Fold</option>
                 <option>Packing</option>
                 <option>Unpacking</option>
                 <option>Other / not sure</option>
