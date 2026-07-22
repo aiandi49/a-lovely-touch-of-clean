@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Booking System — A Lovely Touch of Clean</title>
+<style>
+  :root{
+    --purple:#5b21b6; --purple-l:#7c3aed; --lav:#ede9fe; --lav-mid:#ddd6fe;
+    --ink:#1a1523; --body:#3f3a4a; --muted:#6b6478; --line:#e5e0ec;
+    --warn-bg:#fef2f2; --warn-br:#dc2626;
+    --ok-bg:#f0fdf4; --ok-br:#16a34a;
+    --paper:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#faf9fc;color:var(--body);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:17.5px;line-height:1.75;padding:0 0 80px;}
+  .wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+
+  /* doc switcher */
+  .docnav{background:var(--ink);padding:0;}
+  .docnav-inner{max-width:800px;margin:0 auto;padding:0 24px;display:flex;gap:0;}
+  .docnav a{flex:1;text-align:center;padding:15px 10px;font-size:13.5px;font-weight:600;letter-spacing:.4px;text-decoration:none;color:rgba(255,255,255,.55);border-bottom:3px solid transparent;transition:all .15s;}
+  .docnav a:hover{color:#fff;background:rgba(255,255,255,.06);}
+  .docnav a.active{color:#fff;border-bottom-color:var(--purple-l);background:rgba(124,58,237,.18);}
+
+  header{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-l) 100%);color:#fff;padding:48px 0 42px;margin-bottom:38px;}
+  header .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;opacity:.85;margin-bottom:11px;}
+  header h1{font-size:clamp(29px,5vw,42px);font-weight:800;letter-spacing:-.6px;line-height:1.15;}
+  header .sub{margin-top:13px;font-size:17.5px;opacity:.93;}
+
+  .jump{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:40px;}
+  .jump a{font-size:13px;font-weight:600;text-decoration:none;color:var(--purple);background:var(--lav);border:1px solid var(--lav-mid);padding:8px 16px;border-radius:999px;}
+  .jump a:hover{background:var(--lav-mid);}
+
+  section{margin-bottom:46px;scroll-margin-top:20px;}
+  h2{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);font-weight:700;padding-bottom:10px;border-bottom:2px solid var(--lav-mid);margin-bottom:24px;}
+  h3{font-size:21px;color:var(--ink);font-weight:700;margin:28px 0 11px;letter-spacing:-.2px;}
+  p{margin-bottom:16px;}
+  strong{color:var(--ink);font-weight:700;}
+  em{color:var(--purple);font-style:italic;}
+
+  .box{border-radius:10px;padding:24px 26px;margin:22px 0;border-left:4px solid var(--purple);background:var(--paper);box-shadow:0 1px 3px rgba(26,21,35,.06);}
+  .box.warn{border-left-color:var(--warn-br);background:var(--warn-bg);}
+  .box.ok{border-left-color:var(--ok-br);background:var(--ok-bg);}
+  .box.lav{border-left-color:var(--purple-l);background:var(--lav);}
+  .box-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:11px;color:var(--purple);}
+  .box.warn .box-label{color:var(--warn-br);}
+  .box.ok .box-label{color:var(--ok-br);}
+  .box p:last-child{margin-bottom:0;}
+
+  .big-line{font-size:21px;color:var(--ink);font-weight:700;line-height:1.45;}
+
+  /* what happens now */
+  .flow{counter-reset:f;margin:20px 0;}
+  .flow-step{counter-increment:f;position:relative;padding:16px 0 16px 48px;border-bottom:1px dashed var(--line);}
+  .flow-step:last-child{border-bottom:none;}
+  .flow-step::before{content:counter(f);position:absolute;left:0;top:16px;width:30px;height:30px;background:var(--lav-mid);color:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+  .flow-step.bad::before{background:#fecaca;color:var(--warn-br);}
+  .flow-step p{margin-bottom:0;}
+
+  .price-card{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-l) 100%);color:#fff;border-radius:14px;padding:36px 32px;margin:28px 0;text-align:center;}
+  .price-card .amount{font-size:64px;font-weight:800;line-height:1;letter-spacing:-2px;}
+  .price-card .per{font-size:19px;opacity:.9;margin-top:7px;}
+  .price-card .note{margin-top:18px;padding-top:17px;border-top:1px solid rgba(255,255,255,.25);font-size:15.5px;opacity:.93;}
+
+  ul.check{list-style:none;margin:18px 0;}
+  ul.check li{padding:13px 0 13px 34px;position:relative;border-bottom:1px solid var(--line);font-size:17px;}
+  ul.check li:last-child{border-bottom:none;}
+  ul.check li::before{content:'✓';position:absolute;left:4px;color:var(--ok-br);font-weight:800;font-size:18px;}
+
+  ul.plain{margin:14px 0 14px 22px;}
+  ul.plain li{margin-bottom:10px;padding-left:6px;}
+
+  .capture{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .cap{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:15px 12px;text-align:center;font-size:14.5px;font-weight:600;color:var(--ink);}
+  .cap span{display:block;font-size:20px;margin-bottom:5px;}
+
+  .example{background:var(--ink);color:#e8e3f5;border-radius:11px;padding:24px 26px;margin:20px 0;font-size:17.5px;line-height:1.65;}
+  .example .ex-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;font-weight:700;margin-bottom:10px;}
+
+  footer{margin-top:52px;padding-top:26px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:14.5px;}
+  footer a{color:var(--purple);font-weight:600;text-decoration:none;}
+
+  @media print{
+    body{background:#fff;font-size:11.5pt;}
+    .jump,.docnav{display:none;}
+    header,.price-card,.example,.flow-step::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    section{page-break-inside:avoid;}
+  }
+  @media(max-width:600px){
+    body{font-size:16.5px;}
+    .price-card .amount{font-size:50px;}
+    .box{padding:20px;}
+    .docnav a{font-size:12px;padding:13px 6px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="docnav">
+  <div class="docnav-inner">
+    <a href="booking-system.html" class="active">① Your Booking System</a>
+    <a href="domain-setup.html">② Your Domain</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">A Lovely Touch of Clean, LLC</div>
+    <h1>Your Booking System</h1>
+    <div class="sub">What it does, what it costs, and what happens if you'd rather not.</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="jump">
+    <a href="#first">First Things First</a>
+    <a href="#problem">What's Happening Now</a>
+    <a href="#fix">What Gets Fixed</a>
+    <a href="#list">Your Customer List</a>
+    <a href="#price">The Cost</a>
+    <a href="#no">If You'd Rather Not</a>
+  </div>
+
+  <!-- ══ FIRST ══ -->
+  <section id="first">
+    <h2>First Things First</h2>
+    <div class="box lav">
+      <p class="big-line">Your website is yours. Free, paid for, done.</p>
+      <p style="margin-top:14px;">That was a thank-you for the referral you sent me, and it stands. Nothing on this page changes that, and nothing on this page is a bill for work already finished.</p>
+      <p style="margin-top:14px;">This is about one specific piece that isn't switched on yet — and I'd rather you hear it from me than find out the hard way.</p>
+    </div>
+  </section>
+
+  <!-- ══ PROBLEM ══ -->
+  <section id="problem">
+    <h2>What's Happening Right Now</h2>
+
+    <div class="box warn">
+      <div class="box-label">⚠ Worth knowing today</div>
+      <p class="big-line">Right now, your "Free Estimate" form doesn't save anything.</p>
+    </div>
+
+    <p>Here's exactly what happens when somebody uses it:</p>
+
+    <div class="flow">
+      <div class="flow-step"><p>They type in their name, phone number, email, what they need cleaned, what kind of place they have, and when they'd like it done.</p></div>
+      <div class="flow-step"><p>They hit send.</p></div>
+      <div class="flow-step"><p>They see a friendly thank-you message and go on with their day — <strong>thinking they've booked with you.</strong></p></div>
+      <div class="flow-step bad"><p><strong>And it goes nowhere.</strong> No email to you. No text. No list anywhere. That person is sitting at home waiting for a call that isn't coming, and you don't know they exist.</p></div>
+    </div>
+
+    <div class="box">
+      <div class="box-label">The simplest way to picture it</div>
+      <p>The form <em>looks</em> finished — it's built, it works, it's pretty. But it's like <strong>a phone that rings and rings with nobody there to pick it up.</strong></p>
+      <p style="margin-top:13px;">The ringing part is done. The part that catches the message is the piece that isn't turned on.</p>
+    </div>
+
+    <p>I can turn it on. Here's what that actually means for you.</p>
+  </section>
+
+  <!-- ══ FIX ══ -->
+  <section id="fix">
+    <h2>What Gets Fixed</h2>
+
+    <h3>Nobody falls through anymore</h3>
+    <p>Every single person who fills out that form lands in one place you can open on your phone. Everything they typed, waiting for you:</p>
+
+    <div class="capture">
+      <div class="cap"><span>👤</span>Their name</div>
+      <div class="cap"><span>📞</span>Phone number</div>
+      <div class="cap"><span>✉️</span>Email</div>
+      <div class="cap"><span>🧹</span>Service wanted</div>
+      <div class="cap"><span>🏠</span>Type of place</div>
+      <div class="cap"><span>📅</span>Preferred date</div>
+      <div class="cap"><span>📝</span>Their notes</div>
+      <div class="cap"><span>🕐</span>When they asked</div>
+    </div>
+
+    <p>You open it, you see who's waiting, you call them back. That's the whole thing. No app to learn, no system to figure out — a list on your phone.</p>
+  </section>
+
+  <!-- ══ LIST ══ -->
+  <section id="list">
+    <h2>The Part That's Actually Worth The Most</h2>
+
+    <p>Catching the requests is the obvious benefit. But here's the one I'm more excited about for you.</p>
+
+    <div class="box lav">
+      <p class="big-line">That list becomes yours. Permanently.</p>
+      <p style="margin-top:14px;">Every person who ever asked about your services, sitting in one place. Not just this month's — <strong>all of them, building up over time.</strong></p>
+    </div>
+
+    <p>Which means when business gets slow, you're not starting from zero:</p>
+
+    <div class="example">
+      <div class="ex-label">For example</div>
+      January is quiet. You open your list — 87 people have asked about you over the past year. You send one message: <em>"Spring deep-clean special, $30 off this month."</em>
+      <br><br>
+      That's 87 people who <strong>already raised their hand</strong> and said they were interested in exactly what you do. That's not cold-calling strangers out of a phone book. That's calling people who already wanted you.
+    </div>
+
+    <p><strong>That list is the real asset.</strong> The website is just the thing that fills it up. A year from now the website will look the same — but that list will be worth real money to you.</p>
+
+    <p>And I'll help you send those campaigns. You tell me what you want to offer, I'll get it out to your people.</p>
+  </section>
+
+  <!-- ══ PRICE ══ -->
+  <section id="price">
+    <h2>What It Costs</h2>
+
+    <p>Being straight with you about the money: there's a service that stores all this and keeps it running 24/7, and I pay for it monthly. That bill shows up whether one person books or a hundred do. So this piece can't be free the way the website was — it's an ongoing cost, not a one-time build.</p>
+
+    <div class="price-card">
+      <div class="amount">$100</div>
+      <div class="per">per month</div>
+      <div class="note">This is the friend rate, and it's not close to what this normally runs.</div>
+    </div>
+
+    <h3>Everything that's included</h3>
+    <ul class="check">
+      <li><strong>The booking system running 24/7</strong> — every request caught, day or night</li>
+      <li><strong>Your customer list</strong> — organized, on your phone, growing every month</li>
+      <li><strong>Marketing campaign help</strong> — you tell me the offer, I send it to your list</li>
+      <li><strong>Unlimited edits to your site</strong> — new prices, new services, new photos, holiday hours, whatever</li>
+      <li><strong>You text me, I handle it</strong> — no per-change fees, no "that'll be extra," no waiting on an invoice</li>
+    </ul>
+
+    <div class="box ok">
+      <div class="box-label">✓ Why that last one matters</div>
+      <p>Most companies charge you a monthly fee <em>and then</em> bill you every time you want a price changed or a photo swapped. Those little charges add up faster than the monthly does.</p>
+      <p style="margin-top:13px;">You're not going to have that. If you want something changed, you text me and it's changed. That's part of the $100, not on top of it.</p>
+    </div>
+
+    <p>You're getting this rate because you're a friend and because you looked out for me first. That's just how it works.</p>
+  </section>
+
+  <!-- ══ NO ══ -->
+  <section id="no">
+    <h2>If You'd Rather Not</h2>
+
+    <div class="box">
+      <p class="big-line">Then that's completely fine, and nothing bad happens.</p>
+    </div>
+
+    <ul class="plain">
+      <li><strong>Your website stays up.</strong> It stays yours. Nothing gets taken down, turned off, or held over you.</li>
+      <li><strong>I'll still fix the form — free.</strong> I'd swap it for a simple "Call or Text Us" button so nobody's request disappears into a hole. I'm not leaving something broken on your site either way.</li>
+      <li><strong>The offer stays open.</strong> If you want it in six months, it's here at the same price.</li>
+    </ul>
+
+    <p>Take whatever time you need with it. There's no deadline and no pressure — I just didn't want you going another month not knowing that form wasn't reaching you.</p>
+
+    <div class="box lav">
+      <div class="box-label">Next up</div>
+      <p>The other thing on our list is getting your domain name pointed at the new site. That's a separate, smaller conversation — <a href="domain-setup.html" style="color:var(--purple);font-weight:700;">it's the second tab up top</a> whenever you're ready for it.</p>
+    </div>
+  </section>
+
+  <footer>
+    A Lovely Touch of Clean, LLC · Phoenix, AZ<br>
+    Questions any time — <a href="tel:+16028160202">602-816-0202</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

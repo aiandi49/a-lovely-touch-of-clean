@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Domain Setup — A Lovely Touch of Clean</title>
+<style>
+  :root{
+    --purple:#5b21b6; --purple-l:#7c3aed; --lav:#ede9fe; --lav-mid:#ddd6fe;
+    --ink:#1a1523; --body:#3f3a4a; --muted:#6b6478; --line:#e5e0ec;
+    --warn-bg:#fef2f2; --warn-br:#dc2626;
+    --ok-bg:#f0fdf4; --ok-br:#16a34a;
+    --amber-bg:#fffbeb; --amber-br:#d97706;
+    --paper:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#faf9fc;color:var(--body);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:17.5px;line-height:1.75;padding:0 0 80px;}
+  .wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+
+  .docnav{background:var(--ink);}
+  .docnav-inner{max-width:800px;margin:0 auto;padding:0 24px;display:flex;}
+  .docnav a{flex:1;text-align:center;padding:15px 10px;font-size:13.5px;font-weight:600;letter-spacing:.4px;text-decoration:none;color:rgba(255,255,255,.55);border-bottom:3px solid transparent;transition:all .15s;}
+  .docnav a:hover{color:#fff;background:rgba(255,255,255,.06);}
+  .docnav a.active{color:#fff;border-bottom-color:var(--purple-l);background:rgba(124,58,237,.18);}
+
+  header{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-l) 100%);color:#fff;padding:48px 0 42px;margin-bottom:38px;}
+  header .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;opacity:.85;margin-bottom:11px;}
+  header h1{font-size:clamp(29px,5vw,42px);font-weight:800;letter-spacing:-.6px;line-height:1.15;}
+  header .sub{margin-top:13px;font-size:17.5px;opacity:.93;}
+
+  .jump{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:40px;}
+  .jump a{font-size:13px;font-weight:600;text-decoration:none;color:var(--purple);background:var(--lav);border:1px solid var(--lav-mid);padding:8px 16px;border-radius:999px;}
+  .jump a:hover{background:var(--lav-mid);}
+
+  section{margin-bottom:46px;scroll-margin-top:20px;}
+  h2{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);font-weight:700;padding-bottom:10px;border-bottom:2px solid var(--lav-mid);margin-bottom:24px;}
+  h3{font-size:21px;color:var(--ink);font-weight:700;margin:28px 0 11px;letter-spacing:-.2px;}
+  p{margin-bottom:16px;}
+  strong{color:var(--ink);font-weight:700;}
+  em{color:var(--purple);font-style:italic;}
+
+  .box{border-radius:10px;padding:24px 26px;margin:22px 0;border-left:4px solid var(--purple);background:var(--paper);box-shadow:0 1px 3px rgba(26,21,35,.06);}
+  .box.warn{border-left-color:var(--warn-br);background:var(--warn-bg);}
+  .box.ok{border-left-color:var(--ok-br);background:var(--ok-bg);}
+  .box.amber{border-left-color:var(--amber-br);background:var(--amber-bg);}
+  .box.lav{border-left-color:var(--purple-l);background:var(--lav);}
+  .box-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:11px;color:var(--purple);}
+  .box.warn .box-label{color:var(--warn-br);}
+  .box.ok .box-label{color:var(--ok-br);}
+  .box.amber .box-label{color:var(--amber-br);}
+  .box p:last-child{margin-bottom:0;}
+
+  .big-line{font-size:21px;color:var(--ink);font-weight:700;line-height:1.45;}
+
+  .step{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px 28px;margin-bottom:18px;box-shadow:0 1px 3px rgba(26,21,35,.06);}
+  .step-head{display:flex;align-items:center;gap:15px;margin-bottom:8px;}
+  .step-n{flex:0 0 42px;height:42px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;}
+  .step-t{font-size:20.5px;font-weight:700;color:var(--ink);line-height:1.3;}
+  .step-who{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin:6px 0 14px;}
+  .who-me{background:var(--lav);color:var(--purple);}
+  .who-you{background:#fff1f2;color:#be123c;}
+  .who-both{background:var(--amber-bg);color:var(--amber-br);}
+  .step p:last-child{margin-bottom:0;}
+
+  ol.sub{margin:12px 0 4px 22px;}
+  ol.sub li{margin-bottom:10px;padding-left:6px;}
+  ul.plain{margin:14px 0 14px 22px;}
+  ul.plain li{margin-bottom:10px;padding-left:6px;}
+
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin:22px 0;}
+  .fact{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:19px;text-align:center;}
+  .fact .n{font-size:25px;font-weight:800;color:var(--purple);line-height:1.2;}
+  .fact .l{font-size:12.5px;color:var(--muted);margin-top:5px;}
+
+  .analogy{background:var(--ink);color:#e8e3f5;border-radius:11px;padding:26px 28px;margin:22px 0;font-size:18px;line-height:1.65;}
+  .analogy .a-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;font-weight:700;margin-bottom:11px;}
+
+  footer{margin-top:52px;padding-top:26px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:14.5px;}
+  footer a{color:var(--purple);font-weight:600;text-decoration:none;}
+
+  @media print{
+    body{background:#fff;font-size:11.5pt;}
+    .jump,.docnav{display:none;}
+    header,.analogy,.step-n{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .step,section{page-break-inside:avoid;}
+  }
+  @media(max-width:600px){
+    body{font-size:16.5px;}
+    .step{padding:20px 18px;}
+    .box{padding:20px;}
+    .docnav a{font-size:12px;padding:13px 6px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="docnav">
+  <div class="docnav-inner">
+    <a href="booking-system.html">① Your Booking System</a>
+    <a href="domain-setup.html" class="active">② Your Domain</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">A Lovely Touch of Clean, LLC</div>
+    <h1>Your Domain Setup</h1>
+    <div class="sub">Pointing your web address at your new site — what it is and how we do it.</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="jump">
+    <a href="#what">What This Is</a>
+    <a href="#keep">You Keep Everything</a>
+    <a href="#steps">How We Do It</a>
+    <a href="#email">Your Email</a>
+    <a href="#time">How Long</a>
+    <a href="#worry">Common Worries</a>
+  </div>
+
+  <!-- ══ WHAT ══ -->
+  <section id="what">
+    <h2>What We're Doing</h2>
+
+    <p>Your new website is built and live — it's just sitting at a temporary web address right now. The last step is making <strong>your real domain name</strong> point to it, so when somebody types your business name into their browser, the new site is what comes up.</p>
+
+    <div class="analogy">
+      <div class="a-label">The easiest way to think about it</div>
+      It's a <strong>mail forwarding order.</strong>
+      <br><br>
+      Your address stays your address. You still own it, you still pay for it, your name is still on it. We're just telling the post office <em>"deliver to the new house from now on."</em>
+      <br><br>
+      Same address. New destination.
+    </div>
+  </section>
+
+  <!-- ══ KEEP ══ -->
+  <section id="keep">
+    <h2>What Doesn't Change</h2>
+
+    <div class="box ok">
+      <div class="box-label">✓ Important — you're not giving anything up</div>
+      <p class="big-line">Your domain stays 100% yours.</p>
+      <p style="margin-top:14px;">This is <strong>not</strong> a transfer. You are not signing it over to me or to anyone else.</p>
+    </div>
+
+    <ul class="plain">
+      <li><strong>You still own the domain.</strong> Your name, your account, your property.</li>
+      <li><strong>It stays with ZenBusiness.</strong> You keep paying them for it exactly as you do now — same bill, same renewal.</li>
+      <li><strong>You can undo this any time.</strong> Nothing here is permanent or locked. If you ever wanted to point it somewhere else, you could.</li>
+      <li><strong>I don't get access to your ZenBusiness account.</strong> Unless you want me to have it — see the options below.</li>
+    </ul>
+
+    <p>I'm mentioning all this up front because "let's move your domain" sounds a lot bigger and scarier than what we're actually doing, which is changing two settings.</p>
+  </section>
+
+  <!-- ══ STEPS ══ -->
+  <section id="steps">
+    <h2>How We Do It</h2>
+
+    <p>Four steps. Most of the work is on my end. Here's the whole thing so nothing is a surprise.</p>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-n">1</div>
+        <div class="step-t">I get the two settings we need</div>
+      </div>
+      <div><span class="step-who who-me">I do this · before we talk</span></div>
+      <p>I tell the hosting service that your domain is coming, and it gives me back two short lines of text. That's all this step is — I'm collecting two values to type in later.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-n">2</div>
+        <div class="step-t">We open your ZenBusiness account</div>
+      </div>
+      <div><span class="step-who who-you">Needs you · your login</span></div>
+      <p>This is the only part I can't do without you, because it's your account. You've got three options and any of them work fine:</p>
+      <ol class="sub">
+        <li><strong>You log in and I talk you through it.</strong> You click, I tell you exactly what to type. Nothing gets typed you don't see.</li>
+        <li><strong>You give me temporary access</strong> and I do it in a few minutes. You can change your password afterward if you like.</li>
+        <li><strong>Neither of us touches it.</strong> ZenBusiness has a team that will enter the settings for you — we send them the two lines and they do it. This is an official thing they offer, and it's honestly the easiest option if you'd rather not fuss with it.</li>
+      </ol>
+      <p style="margin-top:14px;"><strong>Whatever you're most comfortable with is the right answer.</strong> There's no wrong choice here.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-n">3</div>
+        <div class="step-t">We swap out the old settings</div>
+      </div>
+      <div><span class="step-who who-both">Together · about 10 minutes</span></div>
+      <p>Inside your account there's a section for your domain settings. There are some entries in there now pointing at ZenBusiness's own page. We take those out and put the new ones in.</p>
+      <p>Before I change a single thing, <strong>I take a screenshot of exactly how it looks.</strong> If anything goes sideways, that picture is how we put it back precisely the way it was. Nothing gets changed that can't be undone.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-n">4</div>
+        <div class="step-t">We wait, then check it</div>
+      </div>
+      <div><span class="step-who who-me">I watch this part</span></div>
+      <p>Once saved, the change spreads across the internet. Usually the site is live within minutes. Officially it can take up to a day or two for everyone everywhere to catch up.</p>
+      <p>The security padlock in the browser bar sets itself up automatically — you don't have to buy anything or do anything for that. I'll confirm it's working and let you know when it's fully done.</p>
+    </div>
+  </section>
+
+  <!-- ══ EMAIL ══ -->
+  <section id="email">
+    <h2>Your Email — Let's Be Careful Here</h2>
+
+    <div class="box amber">
+      <div class="box-label">⚠ One question I need to ask you</div>
+      <p class="big-line">Do you actually use <em>service@lovelytouchcleaning.com</em>?</p>
+      <p style="margin-top:14px;">Meaning — is that a real inbox you check, or does it forward somewhere else, or is it just printed on the site?</p>
+    </div>
+
+    <p>I ask because your email and your website both run off the same domain name, through different settings. They don't normally interfere with each other. <strong>But some systems will quietly rewrite the email settings when the website settings change</strong> — and if that happened, your email would stop working without any warning message.</p>
+
+    <p>So here's how I handle it, whether or not you think you use it:</p>
+
+    <ul class="plain">
+      <li>Screenshot the email settings <strong>before</strong> we touch anything</li>
+      <li>Check them again <strong>after</strong> we save — same as before? Good.</li>
+      <li><strong>Send a test message</strong> to that address and confirm it arrives</li>
+    </ul>
+
+    <p>Takes an extra two minutes and removes the one real risk in this whole process. If anything did get changed, we'd catch it that same day instead of you wondering next week why nobody's emailing you.</p>
+  </section>
+
+  <!-- ══ TIME ══ -->
+  <section id="time">
+    <h2>How Long It Takes</h2>
+
+    <div class="facts">
+      <div class="fact"><div class="n">~10 min</div><div class="l">Our part together</div></div>
+      <div class="fact"><div class="n">Minutes</div><div class="l">Usually live by</div></div>
+      <div class="fact"><div class="n">24–48 hrs</div><div class="l">Worst case, fully everywhere</div></div>
+    </div>
+
+    <p>The hands-on part is short. The waiting part is out of anyone's hands — that's just how the internet passes the change around. If it's not showing up for you immediately, that's normal and not a sign anything went wrong.</p>
+
+    <div class="box">
+      <div class="box-label">A normal thing that looks alarming</div>
+      <p>For a little while, the new site might load for me and not for you, or on your phone and not your computer. <strong>That's expected.</strong> Different networks update at different speeds. Give it a few hours before worrying.</p>
+    </div>
+  </section>
+
+  <!-- ══ WORRIES ══ -->
+  <section id="worry">
+    <h2>Common Worries — Answered</h2>
+
+    <h3>"Will my website go down while we do this?"</h3>
+    <p>Your current site keeps working right up until the new one takes over. There's no window where your address goes dead.</p>
+
+    <h3>"What if I don't like the new site later?"</h3>
+    <p>We point the domain back. It's the same two settings in reverse — nothing about this is one-way.</p>
+
+    <h3>"Do I have to understand any of this?"</h3>
+    <p>No. That's what this page is for. You need to know two things: <strong>your domain stays yours,</strong> and <strong>your email needs checking afterward.</strong> Everything else is my job.</p>
+
+    <h3>"What if something breaks?"</h3>
+    <p>I screenshot everything before I touch it, so we can always put it back exactly how it was. And ZenBusiness's support team can fix anything on their end if it comes to that.</p>
+
+    <h3>"Does this cost anything?"</h3>
+    <p>No. This is part of getting your site live — it's not part of the monthly booking system, and it's not a separate charge. You just keep paying ZenBusiness for the domain like you already do.</p>
+
+    <div class="box lav">
+      <div class="box-label">When you're ready</div>
+      <p>This needs about half an hour of unhurried time and your ZenBusiness login handy. No rush — whenever works for you. Just let me know and I'll have my part ready before we start.</p>
+    </div>
+  </section>
+
+  <footer>
+    A Lovely Touch of Clean, LLC · Phoenix, AZ<br>
+    Questions any time — <a href="tel:+16028160202">602-816-0202</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
