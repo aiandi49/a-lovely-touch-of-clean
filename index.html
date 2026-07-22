@@ -176,6 +176,8 @@ img{max-width:100%;display:block}
   box-shadow:0 24px 60px -30px rgba(10,30,45,.5);background:#000;
 }
 .commercial-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.commercial-wrap:fullscreen{aspect-ratio:auto;max-width:none;border-radius:0}
+.commercial-wrap:-webkit-full-screen{aspect-ratio:auto;max-width:none;border-radius:0}
 @media (max-width:700px){
   .commercial-section{padding:14px}
 }
@@ -183,6 +185,15 @@ img{max-width:100%;display:block}
   position:absolute;inset:0;z-index:2;cursor:pointer;
   background:transparent;border:0;padding:0;
 }
+.commercial-fullscreen{
+  position:absolute;bottom:14px;right:14px;z-index:3;
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(20,20,25,.55);color:#fff;border:0;cursor:pointer;
+  transition:background .2s;
+}
+.commercial-fullscreen:hover{background:rgba(20,20,25,.78)}
+.commercial-fullscreen svg{width:18px;height:18px}
 .ph{
   width:100%;height:100%;display:grid;place-items:center;
   color:#fff;text-align:center;padding:24px;position:relative;
@@ -510,13 +521,17 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <div class="commercial-wrap">
     <iframe
       id="commercialFrame"
-      src="https://www.youtube-nocookie.com/embed/wOvcmyYeXo4?autoplay=0&loop=1&playlist=wOvcmyYeXo4&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&enablejsapi=1"
+      src="https://www.youtube-nocookie.com/embed/wOvcmyYeXo4?autoplay=0&loop=1&playlist=wOvcmyYeXo4&controls=0&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1&enablejsapi=1"
       title="A Lovely Touch of Clean — commercial"
       allow="autoplay; encrypted-media"
       loading="eager"
       referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
     <button type="button" class="commercial-playpause" id="commercialPlayPause" aria-label="Play or pause video"></button>
+    <button type="button" class="commercial-fullscreen" id="commercialFullscreen" aria-label="Full screen">
+      <svg id="iconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+      <svg id="iconCompress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M9 3v3a2 2 0 0 1-2 2H4M15 3v3a2 2 0 0 0 2 2h3M9 21v-3a2 2 0 0 0-2-2H4M15 21v-3a2 2 0 0 1 2-2h3"/></svg>
+    </button>
   </div>
 </section>
 <script>
@@ -533,6 +548,27 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
     if (playing) { post('playVideo'); }
     btn.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
   });
+
+  var wrap = document.querySelector('.commercial-wrap');
+  var fsBtn = document.getElementById('commercialFullscreen');
+  var iconExpand = document.getElementById('iconExpand');
+  var iconCompress = document.getElementById('iconCompress');
+  fsBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (!document.fullscreenElement) {
+      (wrap.requestFullscreen || wrap.webkitRequestFullscreen).call(wrap);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  document.addEventListener('fullscreenchange', updateFsIcon);
+  document.addEventListener('webkitfullscreenchange', updateFsIcon);
+  function updateFsIcon(){
+    var isFs = !!document.fullscreenElement;
+    iconExpand.style.display = isFs ? 'none' : '';
+    iconCompress.style.display = isFs ? '' : 'none';
+    fsBtn.setAttribute('aria-label', isFs ? 'Exit full screen' : 'Full screen');
+  }
 })();
 </script>
 
