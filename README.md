@@ -13,6 +13,7 @@ doesn't save). Add your Supabase keys to make requests save for real.
 
 ```
 index.html      the whole site (self-contained)
+flyer.html      printable promo flyer (5.5in x 8.5in), self-contained
 README.md       this file
 images/
   hero.png             Dawntaya's Maid Service hero (top of page)
@@ -23,6 +24,12 @@ images/
   denny-w.png          Denny W. review photo
   living-room-02.png   spare living-room shot (not currently placed)
 ```
+
+`flyer.html` is a standalone printable flyer, linked from the main nav ("Flyer"),
+the mobile menu, the footer, and a banner near the bottom of the page — click
+any of those and hit **Print flyer** to bring up the browser's print dialog.
+Sized for 5.5in x 8.5in paper (prints two-up on a standard Letter sheet).
+
 
 Every photo is wired in. To swap any of them, drop a new file in `images/` and
 update the matching `<img src="images/...">` in `index.html`. Photos use
