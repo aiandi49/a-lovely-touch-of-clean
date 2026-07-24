@@ -447,6 +447,34 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   *{animation:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
 }
+/* ---- Flyer callout banner ---- */
+.flyer-banner{padding:60px 0}
+.flyer-banner-inner{
+  display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+  background:linear-gradient(135deg,var(--azure),var(--deep));
+  border-radius:20px;padding:38px 44px;color:#fff;
+  box-shadow:0 30px 70px -34px rgba(75,46,131,.55);
+}
+.flyer-banner-icon{
+  width:56px;height:56px;border-radius:14px;flex:none;
+  background:rgba(255,255,255,.16);display:grid;place-items:center;
+}
+.flyer-banner-icon svg{width:26px;height:26px}
+.flyer-banner-text{flex:1;min-width:220px}
+.flyer-banner-text h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.4rem;margin:0 0 6px;color:#fff}
+.flyer-banner-text p{margin:0;color:rgba(255,255,255,.86);font-size:.98rem;max-width:46ch}
+.flyer-banner-btn{
+  display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--deep);
+  font-weight:700;font-family:"Archivo",sans-serif;font-size:.95rem;
+  padding:13px 22px;border-radius:100px;white-space:nowrap;flex:none;
+  transition:transform .15s,box-shadow .15s;
+}
+.flyer-banner-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(0,0,0,.35)}
+.flyer-banner-btn svg{width:17px;height:17px}
+@media (max-width:640px){
+  .flyer-banner-inner{padding:28px 24px;text-align:center;justify-content:center}
+  .flyer-banner-btn{width:100%;justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -465,6 +493,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
       <a href="#trust">Trust</a>
       <a href="#reviews">Reviews</a>
       <a href="#visit">Contact</a>
+      <a href="flyer.html" target="_blank" rel="noopener">Flyer</a>
       <a href="#book" class="nav-cta">Free estimate</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">◐</button>
     </nav>
@@ -480,6 +509,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
   <a href="#trust"    onclick="closeMobileNav()">Trust</a>
   <a href="#reviews"  onclick="closeMobileNav()">Reviews</a>
   <a href="#visit"    onclick="closeMobileNav()">Contact</a>
+  <a href="flyer.html" target="_blank" rel="noopener" onclick="closeMobileNav()">Flyer</a>
   <a href="#book"     onclick="closeMobileNav()" class="mob-cta">Free estimate →</a>
 </nav>
 <section class="masthead" id="top">
@@ -833,6 +863,22 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
 </section>
 
 <!-- ================= FOOTER ================= -->
+<section class="flyer-banner">
+  <div class="wrap flyer-banner-inner">
+    <div class="flyer-banner-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+    </div>
+    <div class="flyer-banner-text">
+      <h3>Got a flyer to hand out?</h3>
+      <p>Print a ready-made, brand-matched flyer straight from your browser — new-customer coupon included.</p>
+    </div>
+    <a href="flyer.html" target="_blank" rel="noopener" class="flyer-banner-btn">
+      View &amp; print flyer
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -845,6 +891,7 @@ footer{padding:clamp(48px,7vw,80px) 0 40px}
         <a href="#about">About us</a>
         <a href="#services">Services</a>
         <a href="#reviews">Reviews</a>
+        <a href="flyer.html" target="_blank" rel="noopener">Print flyer</a>
         <a href="#book">Free estimate</a>
       </div>
       <div class="foot-col">
